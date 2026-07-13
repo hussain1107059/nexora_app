@@ -14,7 +14,21 @@ import 'product_category_screen.dart';
 import 'product_screen.dart';
 import 'withdrawal_screen.dart';
 import 'stock_list_screen.dart';
+import 'report_list_screen.dart';
+import 'payment_report_screen.dart';
+import 'expenditure_report_screen.dart';
+import 'other_income_report_screen.dart';
+import 'statement_report_screen.dart';
+import 'hatchery_report_screen.dart';
+import 'loan_interest_screen.dart';
 import '../models/stock_item.dart';
+import '../models/report_transaction.dart';
+import '../models/payment_report.dart';
+import '../models/expenditure_report.dart';
+import '../models/other_income_report.dart';
+import '../models/statement_report.dart';
+import '../models/hatchery_report.dart';
+import '../models/loan_interest.dart';
 
 class ModuleScreen extends StatefulWidget {
   const ModuleScreen({super.key});
@@ -82,8 +96,6 @@ class _ModuleScreenState extends State<ModuleScreen> {
     {'title': 'Statement', 'icon': Icons.description_outlined},
     {'title': 'Supply', 'icon': Icons.local_shipping_outlined},
     {'title': 'Hatchery', 'icon': Icons.egg_outlined},
-    {'title': 'Sale Register', 'icon': Icons.receipt_long_outlined},
-    {'title': 'Supply & Expense', 'icon': Icons.compare_arrows_outlined},
     {'title': 'Loan Interest', 'icon': Icons.percent_outlined},
   ];
 
@@ -117,6 +129,105 @@ class _ModuleScreenState extends State<ModuleScreen> {
         WarehouseStock(warehouse: 'East Storage', quantityBag: 200, quantityMon: 100, quantityKg: 10000),
       ],
     ),
+  ];
+
+  static const List<ReportTransaction> _saleReportData = [
+    ReportTransaction(date: '2026-07-01', invoice: 'INV-001', organization: 'Green Agro', amount: 45000),
+    ReportTransaction(date: '2026-07-03', invoice: 'INV-002', organization: 'Rahim Traders', amount: 32000),
+    ReportTransaction(date: '2026-07-05', invoice: 'INV-003', organization: 'Hasan Enterprise', amount: 28000),
+    ReportTransaction(date: '2026-07-08', invoice: 'INV-004', organization: 'Shah Cement', amount: 56000),
+  ];
+
+  static const List<ReportTransaction> _saleReturnReportData = [
+    ReportTransaction(date: '2026-07-02', invoice: 'SR-001', organization: 'Green Agro', amount: 12000),
+    ReportTransaction(date: '2026-07-06', invoice: 'SR-002', organization: 'Rahim Traders', amount: 8000),
+    ReportTransaction(date: '2026-07-09', invoice: 'SR-003', organization: 'Hasan Enterprise', amount: 5000),
+  ];
+
+  static const List<PaymentReport> _paymentReportData = [
+    PaymentReport(date: '2026-07-01', transId: 'TXN-001', organization: 'Rahim Traders', type: 'Receive', amount: 32000),
+    PaymentReport(date: '2026-07-03', transId: 'TXN-002', organization: 'Green Agro', type: 'Payment', amount: 15000),
+    PaymentReport(date: '2026-07-06', transId: 'TXN-003', organization: 'Shah Cement', type: 'Receive', amount: 56000),
+    PaymentReport(date: '2026-07-09', transId: 'TXN-004', organization: 'Alim Store', type: 'Payment', amount: 8000),
+  ];
+
+  static const List<ExpenditureReport> _expenditureReportData = [
+    ExpenditureReport(date: '2026-07-02', type: 'Utility', amount: 5000, description: 'Electricity bill'),
+    ExpenditureReport(date: '2026-07-05', type: 'Transport', amount: 3200, description: 'Logistics charge'),
+    ExpenditureReport(date: '2026-07-08', type: 'Salary', amount: 25000, description: 'Staff salary July'),
+    ExpenditureReport(date: '2026-07-11', type: 'Maintenance', amount: 4500, description: 'Equipment repair'),
+  ];
+
+  static const List<OtherIncomeReport> _otherIncomeReportData = [
+    OtherIncomeReport(date: '2026-07-03', source: 'Rent', consumer: 'Shop Owner', amount: 12000),
+    OtherIncomeReport(date: '2026-07-07', source: 'Commission', consumer: 'Broker', amount: 5500),
+    OtherIncomeReport(date: '2026-07-10', source: 'Dividend', consumer: 'Shareholder', amount: 8000),
+  ];
+
+  static const List<StatementReport> _statementReportData = [
+    StatementReport(
+      date: '2026-07-01',
+      totalIncome: 185000,
+      totalCost: 142000,
+      profitLoss: 43000,
+      breakdown: StatementBreakdown(
+        sale: 120000, saleReturn: 8000, supplyAmountReceive: 45000, amountPayment: 32000,
+        expenditure: 25000, otherIncome: 12000, withdrawal: 15000, hatcheryIncome: 8000, hatcheryExpense: 5000,
+      ),
+    ),
+    StatementReport(
+      date: '2026-07-08',
+      totalIncome: 192000,
+      totalCost: 158000,
+      profitLoss: 34000,
+      breakdown: StatementBreakdown(
+        sale: 130000, saleReturn: 5000, supplyAmountReceive: 48000, amountPayment: 35000,
+        expenditure: 28000, otherIncome: 8000, withdrawal: 12000, hatcheryIncome: 6000, hatcheryExpense: 7000,
+      ),
+    ),
+    StatementReport(
+      date: '2026-07-15',
+      totalIncome: 168000,
+      totalCost: 175000,
+      profitLoss: -7000,
+      breakdown: StatementBreakdown(
+        sale: 100000, saleReturn: 3000, supplyAmountReceive: 55000, amountPayment: 28000,
+        expenditure: 32000, otherIncome: 5000, withdrawal: 10000, hatcheryIncome: 4000, hatcheryExpense: 8000,
+      ),
+    ),
+  ];
+
+  static const List<HatcheryReport> _hatcheryReportData = [
+    HatcheryReport(date: '2026-07-02', type: 'Income', product: 'Eggs (Layer)', amount: 15000),
+    HatcheryReport(date: '2026-07-04', type: 'Expense', product: 'Chick Feed', amount: 8000),
+    HatcheryReport(date: '2026-07-09', type: 'Income', product: 'Day-old Chicks', amount: 22000),
+    HatcheryReport(date: '2026-07-12', type: 'Expense', product: 'Medicine', amount: 3500),
+  ];
+
+  static const List<LoanAccount> _loanAccounts = [
+    LoanAccount(loanNo: 'SNL-001', bank: 'Sonali Bank', entries: [
+      LoanEntry(date: '2026-07-01', allocation: 500000, repayment: 0, balance: 500000, interest: 0),
+      LoanEntry(date: '2026-07-15', allocation: 0, repayment: 50000, balance: 450000, interest: 4500),
+    ]),
+    LoanAccount(loanNo: 'SNL-002', bank: 'Sonali Bank', entries: [
+      LoanEntry(date: '2026-06-01', allocation: 300000, repayment: 0, balance: 300000, interest: 0),
+      LoanEntry(date: '2026-07-01', allocation: 0, repayment: 30000, balance: 270000, interest: 2700),
+    ]),
+    LoanAccount(loanNo: 'DBL-001', bank: 'Dutch Bangla Bank', entries: [
+      LoanEntry(date: '2026-05-01', allocation: 800000, repayment: 0, balance: 800000, interest: 0),
+      LoanEntry(date: '2026-07-01', allocation: 0, repayment: 80000, balance: 720000, interest: 7200),
+    ]),
+    LoanAccount(loanNo: 'IBL-001', bank: 'Islami Bank', entries: [
+      LoanEntry(date: '2026-04-01', allocation: 1000000, repayment: 0, balance: 1000000, interest: 0),
+      LoanEntry(date: '2026-07-01', allocation: 0, repayment: 100000, balance: 900000, interest: 9000),
+    ]),
+  ];
+
+  static const List<ReportTransaction> _supplyReportData = [
+    ReportTransaction(date: '2026-07-02', organization: 'Sonali Suppliers', amount: 15000),
+    ReportTransaction(date: '2026-07-04', organization: 'Alim Store', amount: 22000),
+    ReportTransaction(date: '2026-07-07', organization: 'Karim Brothers', amount: 18000),
+    ReportTransaction(date: '2026-07-10', organization: 'Bashundhara', amount: 35000),
   ];
 
   static const List<StockItem> _productStockData = [
@@ -269,6 +380,26 @@ class _ModuleScreenState extends State<ModuleScreen> {
             } else if (items == _stockItems) {
               final stockData = title == 'Supply Stock' ? _supplyStockData : _productStockData;
               Navigator.push(context, MaterialPageRoute(builder: (_) => StockListScreen(title: title, items: stockData)));
+            } else if (items == _reportItems) {
+              if (title == 'Sale') {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => ReportListScreen(title: 'Sale', showInvoice: true, items: _saleReportData)));
+              } else if (title == 'Sale Return') {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => ReportListScreen(title: 'Sale Return', showInvoice: true, items: _saleReturnReportData)));
+              } else if (title == 'Payment') {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => PaymentReportScreen(items: _paymentReportData)));
+              } else if (title == 'Expenditure') {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => ExpenditureReportScreen(items: _expenditureReportData)));
+              } else if (title == 'Other Income') {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => OtherIncomeReportScreen(items: _otherIncomeReportData)));
+              } else if (title == 'Statement') {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => StatementReportScreen(items: _statementReportData)));
+              } else if (title == 'Hatchery') {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => HatcheryReportScreen(items: _hatcheryReportData)));
+              } else if (title == 'Loan Interest') {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => LoanInterestScreen(accounts: _loanAccounts)));
+              } else if (title == 'Supply') {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => ReportListScreen(title: 'Supply', showInvoice: false, items: _supplyReportData)));
+              }
             }
           },
           borderRadius: BorderRadius.circular(22),
