@@ -13,6 +13,8 @@ import 'payment_screen.dart';
 import 'product_category_screen.dart';
 import 'product_screen.dart';
 import 'withdrawal_screen.dart';
+import 'stock_list_screen.dart';
+import '../models/stock_item.dart';
 
 class ModuleScreen extends StatefulWidget {
   const ModuleScreen({super.key});
@@ -88,6 +90,60 @@ class _ModuleScreenState extends State<ModuleScreen> {
   static const _hatcheryItems = [
     {'title': 'Income', 'icon': Icons.trending_up_outlined},
     {'title': 'Expenditure', 'icon': Icons.trending_down_outlined},
+  ];
+
+  static const List<StockItem> _supplyStockData = [
+    StockItem(
+      productName: 'DAP Fertilizer',
+      quantityBag: 500, quantityMon: 250, quantityKg: 25000,
+      warehouses: [
+        WarehouseStock(warehouse: 'Main Warehouse', quantityBag: 300, quantityMon: 150, quantityKg: 15000),
+        WarehouseStock(warehouse: 'North Storage', quantityBag: 200, quantityMon: 100, quantityKg: 10000),
+      ],
+    ),
+    StockItem(
+      productName: 'Urea',
+      quantityBag: 800, quantityMon: 400, quantityKg: 40000,
+      warehouses: [
+        WarehouseStock(warehouse: 'Main Warehouse', quantityBag: 500, quantityMon: 250, quantityKg: 25000),
+        WarehouseStock(warehouse: 'South Storage', quantityBag: 300, quantityMon: 150, quantityKg: 15000),
+      ],
+    ),
+    StockItem(
+      productName: 'TSP',
+      quantityBag: 350, quantityMon: 175, quantityKg: 17500,
+      warehouses: [
+        WarehouseStock(warehouse: 'Main Warehouse', quantityBag: 150, quantityMon: 75, quantityKg: 7500),
+        WarehouseStock(warehouse: 'East Storage', quantityBag: 200, quantityMon: 100, quantityKg: 10000),
+      ],
+    ),
+  ];
+
+  static const List<StockItem> _productStockData = [
+    StockItem(
+      productName: 'Rice BR-28',
+      quantityBag: 1200, quantityMon: 600, quantityKg: 60000,
+      warehouses: [
+        WarehouseStock(warehouse: 'Main Warehouse', quantityBag: 700, quantityMon: 350, quantityKg: 35000),
+        WarehouseStock(warehouse: 'West Storage', quantityBag: 500, quantityMon: 250, quantityKg: 25000),
+      ],
+    ),
+    StockItem(
+      productName: 'Wheat',
+      quantityBag: 900, quantityMon: 450, quantityKg: 45000,
+      warehouses: [
+        WarehouseStock(warehouse: 'Main Warehouse', quantityBag: 600, quantityMon: 300, quantityKg: 30000),
+        WarehouseStock(warehouse: 'North Storage', quantityBag: 300, quantityMon: 150, quantityKg: 15000),
+      ],
+    ),
+    StockItem(
+      productName: 'Maize',
+      quantityBag: 650, quantityMon: 325, quantityKg: 32500,
+      warehouses: [
+        WarehouseStock(warehouse: 'Main Warehouse', quantityBag: 400, quantityMon: 200, quantityKg: 20000),
+        WarehouseStock(warehouse: 'South Storage', quantityBag: 250, quantityMon: 125, quantityKg: 12500),
+      ],
+    ),
   ];
 
   void _openSubGrid(String title, List<Map<String, dynamic>> items) {
@@ -210,6 +266,9 @@ class _ModuleScreenState extends State<ModuleScreen> {
               } else if (title == 'Products') {
                 Navigator.push(context, MaterialPageRoute(builder: (_) => const ProductScreen()));
               }
+            } else if (items == _stockItems) {
+              final stockData = title == 'Supply Stock' ? _supplyStockData : _productStockData;
+              Navigator.push(context, MaterialPageRoute(builder: (_) => StockListScreen(title: title, items: stockData)));
             }
           },
           borderRadius: BorderRadius.circular(22),

@@ -142,6 +142,8 @@ class ERPDrawer extends StatelessWidget {
         return Icons.precision_manufacturing_outlined;
       case 'report_problem':
         return Icons.report_problem_outlined;
+      case 'check_circle':
+        return Icons.check_circle_outlined;
       default:
         return Icons.widgets_outlined;
     }
