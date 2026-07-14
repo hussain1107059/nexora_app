@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
+import '../models/sale.dart';
 import '../models/work_order.dart';
+import 'sale_form_screen.dart';
 import 'work_order_detail_screen.dart';
 import 'work_order_form_screen.dart';
 
@@ -50,6 +52,32 @@ class _WorkOrderScreenState extends State<WorkOrderScreen> {
         }
       });
     }
+  }
+
+  void _convertToSale(WorkOrder order) {
+    const trucks = ['Truck A (DA-1234)', 'Truck B (DA-5678)', 'Truck C (DA-9012)', 'Truck D (DA-3456)'];
+    const warehouses = ['Main Warehouse', 'North Storage', 'South Storage', 'East Storage', 'West Storage'];
+    final sale = Sale(
+      date: order.date,
+      saleType: order.workType,
+      customer: order.organization,
+      chalanNo: '',
+      partyNo: '',
+      serialNo: '',
+      truck: trucks.first,
+      remarks: order.remarks,
+      items: order.items.map((item) => SaleItem(
+        productName: item.productName,
+        saleRate: 0,
+        warehouse: warehouses.first,
+        packageWeight: 0,
+        quantity: item.quantity,
+      )).toList(),
+    );
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => SaleFormScreen(sale: sale)),
+    );
   }
 
   void _view(WorkOrder order) {
@@ -149,7 +177,7 @@ class _WorkOrderScreenState extends State<WorkOrderScreen> {
               label: 'View',
             ),
             SlidableAction(
-              onPressed: (_) => _view(order),
+              onPressed: (_) => _convertToSale(order),
               backgroundColor: const Color(0xFF2563EB),
               foregroundColor: Colors.white,
               icon: Icons.shopping_cart_outlined,

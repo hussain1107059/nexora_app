@@ -399,7 +399,8 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
 
   Widget _buildDropdown(String label, String value, List<String> items, ValueChanged<String?> onChanged) {
     return DropdownButtonFormField<String>(
-      value: value,
+      key: ValueKey('${label}_$value'),
+      initialValue: value,
       items: items.map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
       onChanged: onChanged,
       decoration: InputDecoration(

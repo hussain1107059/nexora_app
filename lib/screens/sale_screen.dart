@@ -178,20 +178,23 @@ class _SaleScreenState extends State<SaleScreen> {
             ),
           ],
         ),
-        child: Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            border: Border(bottom: BorderSide(color: Color(0xFFEEEEEE))),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-            child: Row(
-              children: [
-                Expanded(flex: 2, child: Text(_formatDate(sale.date), style: const TextStyle(fontSize: 12))),
-                Expanded(flex: 2, child: Text(invoiceNo, style: const TextStyle(fontSize: 12))),
-                Expanded(flex: 3, child: Text(sale.customer, style: const TextStyle(fontSize: 12), overflow: TextOverflow.ellipsis)),
-                Expanded(flex: 2, child: Text('\$${sale.totalAmount.toStringAsFixed(0)}', style: const TextStyle(fontSize: 12))),
-              ],
+        child: InkWell(
+          onTap: () => _openForm(sale),
+          child: Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              border: Border(bottom: BorderSide(color: Color(0xFFEEEEEE))),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+              child: Row(
+                children: [
+                  Expanded(flex: 2, child: Text(_formatDate(sale.date), style: const TextStyle(fontSize: 12))),
+                  Expanded(flex: 2, child: Text(invoiceNo, style: const TextStyle(fontSize: 12))),
+                  Expanded(flex: 3, child: Text(sale.customer, style: const TextStyle(fontSize: 12), overflow: TextOverflow.ellipsis)),
+                  Expanded(flex: 2, child: Text('\$${sale.totalAmount.toStringAsFixed(0)}', style: const TextStyle(fontSize: 12))),
+                ],
+              ),
             ),
           ),
         ),
