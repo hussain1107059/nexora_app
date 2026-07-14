@@ -22,6 +22,7 @@ import 'statement_report_screen.dart';
 import 'hatchery_report_screen.dart';
 import 'loan_interest_screen.dart';
 import 'expenditure_screen.dart';
+import 'inventory_loss_screen.dart';
 import 'sale_screen.dart';
 import 'supply_screen.dart';
 import 'work_order_screen.dart';
@@ -288,6 +289,9 @@ class _ModuleScreenState extends State<ModuleScreen> {
     }
     if (module?.title == 'Supply') {
       return const SupplyScreen();
+    }
+    if (module?.title == 'Inventory Loss') {
+      return const InventoryLossScreen();
     }
     if (module?.title == 'Work Order') {
       return const WorkOrderScreen();
