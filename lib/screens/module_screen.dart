@@ -21,6 +21,10 @@ import 'other_income_report_screen.dart';
 import 'statement_report_screen.dart';
 import 'hatchery_report_screen.dart';
 import 'loan_interest_screen.dart';
+import 'expenditure_screen.dart';
+import 'sale_screen.dart';
+import 'supply_screen.dart';
+import 'work_order_screen.dart';
 import '../models/stock_item.dart';
 import '../models/report_transaction.dart';
 import '../models/payment_report.dart';
@@ -275,6 +279,20 @@ class _ModuleScreenState extends State<ModuleScreen> {
   Widget build(BuildContext context) {
     final module = ModalRoute.of(context)?.settings.arguments as ErpModule?;
     final loc = AppLocalizations.of(context);
+
+    if (module?.title == 'Expenditure') {
+      return const ExpenditureScreen();
+    }
+    if (module?.title == 'Sale') {
+      return const SaleScreen();
+    }
+    if (module?.title == 'Supply') {
+      return const SupplyScreen();
+    }
+    if (module?.title == 'Work Order') {
+      return const WorkOrderScreen();
+    }
+
     final isAccount = module?.title == 'Account';
     final isAdmin = module?.title == 'Administration';
     final isProduct = module?.title == 'Product';
