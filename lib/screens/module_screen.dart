@@ -24,6 +24,7 @@ import 'loan_interest_screen.dart';
 import 'access_role_screen.dart';
 import 'authorization_screen.dart';
 import 'check_in_screen.dart';
+import 'sale_return_screen.dart';
 import 'expenditure_screen.dart';
 import 'inventory_loss_screen.dart';
 import 'sale_screen.dart';
@@ -289,6 +290,9 @@ class _ModuleScreenState extends State<ModuleScreen> {
     }
     if (module?.title == 'Sale') {
       return const SaleScreen();
+    }
+    if (module?.title == 'Sale Return') {
+      return const SaleReturnScreen();
     }
     if (module?.title == 'Supply') {
       return const SupplyScreen();
