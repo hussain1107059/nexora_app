@@ -21,6 +21,7 @@ import 'other_income_report_screen.dart';
 import 'statement_report_screen.dart';
 import 'hatchery_report_screen.dart';
 import 'loan_interest_screen.dart';
+import 'access_role_screen.dart';
 import 'authorization_screen.dart';
 import 'check_in_screen.dart';
 import 'expenditure_screen.dart';
@@ -401,6 +402,8 @@ class _ModuleScreenState extends State<ModuleScreen> {
             } else if (items == _adminItems) {
               if (title == 'Authorization') {
                 Navigator.push(context, MaterialPageRoute(builder: (_) => const AuthorizationScreen()));
+              } else if (title == 'Access Role') {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const AccessRoleScreen()));
               }
             } else if (items == _productItems) {
               if (title == 'Product Category') {
