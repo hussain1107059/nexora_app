@@ -25,9 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _signIn() {
-    if (_formKey.currentState?.validate() ?? false) {
-      Navigator.pushReplacementNamed(context, AppRoutes.dashboard);
-    }
+    Navigator.pushReplacementNamed(context, AppRoutes.dashboard);
   }
 
   InputDecoration _fieldDecoration(String label) {
@@ -96,24 +94,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               controller: _emailController,
                               decoration: _fieldDecoration(loc.emailField),
                               keyboardType: TextInputType.emailAddress,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return loc.validationEmail;
-                                }
-                                return null;
-                              },
                             ),
                             const SizedBox(height: 16),
                             TextFormField(
                               controller: _passwordController,
                               decoration: _fieldDecoration(loc.passwordField),
                               obscureText: true,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return loc.validationPassword;
-                                }
-                                return null;
-                              },
                             ),
                             const SizedBox(height: 24),
                             SizedBox(

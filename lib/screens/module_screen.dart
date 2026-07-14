@@ -21,6 +21,7 @@ import 'other_income_report_screen.dart';
 import 'statement_report_screen.dart';
 import 'hatchery_report_screen.dart';
 import 'loan_interest_screen.dart';
+import 'check_in_screen.dart';
 import 'expenditure_screen.dart';
 import 'inventory_loss_screen.dart';
 import 'sale_screen.dart';
@@ -292,6 +293,9 @@ class _ModuleScreenState extends State<ModuleScreen> {
     }
     if (module?.title == 'Inventory Loss') {
       return const InventoryLossScreen();
+    }
+    if (module?.title == 'Check In') {
+      return const CheckInScreen();
     }
     if (module?.title == 'Work Order') {
       return const WorkOrderScreen();
