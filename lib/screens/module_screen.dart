@@ -21,6 +21,7 @@ import 'other_income_report_screen.dart';
 import 'statement_report_screen.dart';
 import 'hatchery_report_screen.dart';
 import 'loan_interest_screen.dart';
+import 'authorization_screen.dart';
 import 'check_in_screen.dart';
 import 'expenditure_screen.dart';
 import 'inventory_loss_screen.dart';
@@ -396,6 +397,10 @@ class _ModuleScreenState extends State<ModuleScreen> {
                 Navigator.push(context, MaterialPageRoute(builder: (_) => const OtherIncomeScreen()));
               } else if (title == 'Withdrawal') {
                 Navigator.push(context, MaterialPageRoute(builder: (_) => const WithdrawalScreen()));
+              }
+            } else if (items == _adminItems) {
+              if (title == 'Authorization') {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const AuthorizationScreen()));
               }
             } else if (items == _productItems) {
               if (title == 'Product Category') {
