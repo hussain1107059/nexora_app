@@ -53,6 +53,7 @@ class DashboardScreen extends StatelessWidget {
     Color(0xFF4F46E5), // Inventory Loss - deep indigo
     Color(0xFF16A34A), // Report - deep green
     Color(0xFF9333EA), // Stock - deep purple
+    Color(0xFFE11D48), // Manufacturer - deep rose
   ];
 
   @override

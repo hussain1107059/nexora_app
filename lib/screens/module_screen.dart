@@ -27,6 +27,8 @@ import 'check_in_screen.dart';
 import 'sale_return_screen.dart';
 import 'expenditure_screen.dart';
 import 'inventory_loss_screen.dart';
+import 'production_screen.dart';
+import 'product_stock_entry_screen.dart';
 import 'sale_screen.dart';
 import 'supply_screen.dart';
 import 'work_order_screen.dart';
@@ -310,7 +312,7 @@ class _ModuleScreenState extends State<ModuleScreen> {
     final isAccount = module?.title == 'Account';
     final isAdmin = module?.title == 'Administration';
     final isProduct = module?.title == 'Product';
-    final isManufacture = module?.title == 'Manufacture';
+    final isManufacture = module?.title == 'Manufacturer';
     final isStock = module?.title == 'Stock';
     final isReport = module?.title == 'Report';
 
@@ -414,6 +416,12 @@ class _ModuleScreenState extends State<ModuleScreen> {
                 Navigator.push(context, MaterialPageRoute(builder: (_) => const ProductCategoryScreen()));
               } else if (title == 'Products') {
                 Navigator.push(context, MaterialPageRoute(builder: (_) => const ProductScreen()));
+              }
+            } else if (items == _manufactureItems) {
+              if (title == 'Production') {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const ProductionScreen()));
+              } else if (title == 'Product Stock Entry') {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const ProductStockEntryScreen()));
               }
             } else if (items == _stockItems) {
               final stockData = title == 'Supply Stock' ? _supplyStockData : _productStockData;

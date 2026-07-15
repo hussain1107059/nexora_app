@@ -18,6 +18,7 @@ final List<ErpModule> erpModules = [
   const ErpModule(title: 'Work Order', icon: 'build_circle', description: 'Tasks, maintenance, operations'),
   const ErpModule(title: 'Sale', icon: 'shopping_cart', description: 'Sales orders, invoicing, transactions'),
   const ErpModule(title: 'Sale Return', icon: 'assignment_return', description: 'Manage sale returns and refunds'),
+  const ErpModule(title: 'Manufacturer', icon: 'precision_manufacturing', description: 'Production management, manufacturing operations'),
   const ErpModule(title: 'Supply', icon: 'local_shipping', description: 'Supply management, procurement, stock entry'),
   const ErpModule(title: 'Inventory Loss', icon: 'inventory', description: 'Track and manage inventory losses'),
   const ErpModule(title: 'Stock', icon: 'inventory_2', description: 'Stock levels, warehouses, and item tracking'),
