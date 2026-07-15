@@ -51,6 +51,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^4.0.0
+  flutter_launcher_icons: ^0.14.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -72,6 +73,23 @@ flutter:
 
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/to/asset-from-package
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/nexora1.jpg"
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/images/nexora1.jpg"
+  web:
+    generate: true
+    image_path: "assets/images/nexora1.jpg"
+  windows:
+    generate: true
+    image_path: "assets/images/nexora1.jpg"
+    icon_size: 48
+  macos:
+    generate: true
+    image_path: "assets/images/nexora1.jpg"
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
