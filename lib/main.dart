@@ -22,7 +22,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return AppLocalizationsProvider(
+    return  AppLocalizationsProvider(
       notifier: _localizations,
       child: Builder(
         builder: (context) {
