@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../services/auth_service.dart';
 import 'customer_screen.dart';
 import 'dashboard_screen.dart';
 import 'employee_screen.dart';
@@ -14,6 +15,12 @@ class AppShell extends StatefulWidget {
 
 class _AppShellState extends State<AppShell> {
   int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    AuthService.fetchPermissions();
+  }
 
   final List<Widget> _screens = [
     const DashboardScreen(),

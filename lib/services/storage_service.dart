@@ -8,6 +8,7 @@ class StorageService {
   static const String _accessIdKey = 'access_id';
   static const String _accessRoleKey = 'access_role';
   static const String _nameKey = 'name';
+  static const String _permissionsKey = 'permissions';
 
   static late SharedPreferences _prefs;
 
@@ -56,6 +57,12 @@ class StorageService {
   }
 
   static String? getName() => _prefs.getString(_nameKey);
+
+  static Future<void> setPermissions(String value) async {
+    await _prefs.setString(_permissionsKey, value);
+  }
+
+  static String? getPermissions() => _prefs.getString(_permissionsKey);
 
   static Future<void> clearAll() async {
     await _prefs.clear();

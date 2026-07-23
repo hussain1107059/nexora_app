@@ -138,6 +138,48 @@ class AuthService {
     }
   }
 
+  static Future<void> fetchPermissions() async {
+    try {
+      final baseUrl = StorageService.getBaseUrl();
+      final token = StorageService.getToken();
+
+      debugPrint('\n===== FETCH PERMISSIONS =====');
+      debugPrint('Base URL from storage: $baseUrl');
+      debugPrint('Token from storage: ${token != null ? '${token.substring(0, 20)}...' : 'null'}');
+
+      if (baseUrl == null || token == null) {
+        debugPrint('SKIP: baseUrl or token is null');
+        return;
+      }
+
+      final url = '$baseUrl/api/auth/user/permissions';
+      final headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      };
+
+      debugPrint('URL: $url');
+      debugPrint('Headers: $headers');
+
+      final response = await http.get(Uri.parse(url), headers: headers);
+
+      debugPrint('Response status: ${response.statusCode}');
+      debugPrint('Response body: ${response.body}');
+
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        final permissions = json['permissions'] ?? json;
+        final permissionsStr = jsonEncode(permissions);
+        await StorageService.setPermissions(permissionsStr);
+        debugPrint('PERMISSIONS SAVED SUCCESSFULLY: $permissionsStr');
+      } else {
+        debugPrint('FAILED: Status code is ${response.statusCode}, not 200');
+      }
+    } catch (e) {
+      debugPrint('FETCH PERMISSIONS ERROR: $e');
+    }
+  }
+
   static AuthResponse _handleResponse(http.Response response) {
     debugPrint('Status: ${response.statusCode}');
     debugPrint('Body: ${response.body}');
