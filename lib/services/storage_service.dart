@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StorageService {
@@ -65,6 +68,26 @@ class StorageService {
   static String? getPermissions() => _prefs.getString(_permissionsKey);
 
   static Future<void> clearAll() async {
-    await _prefs.clear();
+    await _prefs.setBool(_loginStatusKey, false);
+    await _prefs.remove(_baseUrlKey);
+    await _prefs.remove(_tokenKey);
+    await _prefs.remove(_idKey);
+    await _prefs.remove(_accessIdKey);
+    await _prefs.remove(_accessRoleKey);
+    await _prefs.remove(_nameKey);
+    await _prefs.remove(_permissionsKey);
+    await _clearAppCache();
+  }
+
+  static Future<void> _clearAppCache() async {
+    if (kIsWeb) return;
+    try {
+      final dir = Directory.systemTemp;
+      if (await dir.exists()) {
+        await dir.delete(recursive: true);
+      }
+    } catch (e) {
+      debugPrint('Cache clear error: $e');
+    }
   }
 }
