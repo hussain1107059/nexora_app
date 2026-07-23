@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../localization/app_localizations.dart';
+import '../services/auth_service.dart';
 import '../utils/app_routes.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -15,6 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _companyCodeController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -24,8 +26,36 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  void _signIn() {
-    Navigator.pushReplacementNamed(context, AppRoutes.dashboard);
+  Future<void> _signIn() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    setState(() => _isLoading = true);
+
+    final success = await AuthService.fullAuthFlow(
+      _companyCodeController.text.trim(),
+      _emailController.text.trim(),
+      _passwordController.text,
+    );
+
+    if (!mounted) return;
+    setState(() => _isLoading = false);
+
+    if (success) {
+      Navigator.pushReplacementNamed(context, AppRoutes.dashboard);
+    } else {
+      _showResult('Login failed. Check terminal for details.');
+    }
+  }
+
+  void _showResult(String message) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Response'),
+        content: SingleChildScrollView(child: Text(message)),
+        actions: [TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('OK'))],
+      ),
+    );
   }
 
   InputDecoration _fieldDecoration(String label) {
@@ -105,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             SizedBox(
                               width: double.infinity,
                               child: ElevatedButton(
-                                onPressed: _signIn,
+                                onPressed: _isLoading ? null : _signIn,
                                 style: ElevatedButton.styleFrom(
                                   padding: const EdgeInsets.symmetric(vertical: 16),
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -113,7 +143,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   foregroundColor: Colors.white,
                                   elevation: 0,
                                 ),
-                                child: Text(loc.signInButton, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                                child: _isLoading
+                                    ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                                    : Text(loc.signInButton, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
                               ),
                             ),
                           ],
