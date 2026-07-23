@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../localization/app_localizations.dart';
 import '../models/erp_module.dart';
+import '../services/storage_service.dart';
 import '../utils/app_routes.dart';
 
 class ERPDrawer extends StatelessWidget {
@@ -75,7 +76,12 @@ class ERPDrawer extends StatelessWidget {
               },
             ),
             const SizedBox(height: 8),
-            _drawerItem(context, icon: Icons.logout, title: loc.signOut, selected: false, route: AppRoutes.login, iconColor: Colors.red, textColor: Colors.red),
+            _drawerItem(context, icon: Icons.logout, title: loc.signOut, selected: false, iconColor: Colors.red, textColor: Colors.red, onTap: () async {
+              await StorageService.clearAll();
+              if (context.mounted) {
+                Navigator.pushNamedAndRemoveUntil(context, AppRoutes.login, (_) => false);
+              }
+            }),
             const SizedBox(height: 8),
             const Divider(indent: 16, endIndent: 16),
             Padding(
@@ -96,7 +102,7 @@ class ERPDrawer extends StatelessWidget {
     );
   }
 
-  Widget _drawerItem(BuildContext context, {required IconData icon, required String title, required bool selected, required String route, Color? iconColor, Color? textColor, Color? bgColor}) {
+  Widget _drawerItem(BuildContext context, {required IconData icon, required String title, required bool selected, String? route, Color? iconColor, Color? textColor, Color? bgColor, VoidCallback? onTap}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
       child: ListTile(
@@ -111,7 +117,7 @@ class ERPDrawer extends StatelessWidget {
         title: Text(title, style: TextStyle(fontWeight: selected ? FontWeight.w700 : FontWeight.w500, color: textColor ?? (selected ? const Color(0xFF1E3A8A) : const Color(0xFF334155)))),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
         tileColor: selected ? const Color(0xFFDDEAFE) : Colors.transparent,
-        onTap: () => Navigator.pushReplacementNamed(context, route),
+        onTap: onTap ?? (route != null ? () => Navigator.pushReplacementNamed(context, route) : null),
       ),
     );
   }

@@ -31,19 +31,26 @@ class _LoginScreenState extends State<LoginScreen> {
 
     setState(() => _isLoading = true);
 
-    final success = await AuthService.fullAuthFlow(
-      _companyCodeController.text.trim(),
-      _emailController.text.trim(),
-      _passwordController.text,
-    );
+    try {
+      final success = await AuthService.fullAuthFlow(
+        _companyCodeController.text.trim(),
+        _emailController.text.trim(),
+        _passwordController.text,
+      );
 
-    if (!mounted) return;
-    setState(() => _isLoading = false);
+      if (!mounted) return;
+      setState(() => _isLoading = false);
 
-    if (success) {
-      Navigator.pushReplacementNamed(context, AppRoutes.dashboard);
-    } else {
-      _showResult('Login failed. Check terminal for details.');
+      if (success) {
+        Navigator.pushReplacementNamed(context, AppRoutes.dashboard);
+      } else {
+        _showResult('Login failed. Please check your credentials and try again.');
+      }
+    } catch (e) {
+      debugPrint('Login error: $e');
+      if (!mounted) return;
+      setState(() => _isLoading = false);
+      _showResult('Error: $e');
     }
   }
 
